@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.3.7'
+ruby '2.2.6'
 
 gem 'rails', '~> 5.2.1'
 gem 'puma', '~> 3.11'
@@ -17,6 +17,7 @@ gem 'coffee-script-source', '1.8.0'
 gem 'execjs'
 gem 'nested_form_fields'
 gem 'carrierwave', '~> 1.0'
+gem 'fog-aws'
 
 group :production do
 	gem 'pg'
