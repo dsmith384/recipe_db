@@ -4,6 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.2.6'
 
 gem 'rails', '~> 5.2.1'
+gem 'devise', '~> 4.5'
 gem 'puma', '~> 3.11'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
@@ -16,16 +17,17 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'coffee-script-source', '1.8.0'
 gem 'execjs'
 gem 'nested_form_fields'
+gem 'carrierwave-aws'
 gem 'carrierwave', '~> 1.0'
+gem 'mini_magick'
+gem 'aws-sdk-rails'
+gem 'figaro'
 gem 'fog-aws'
+gem 'nio4r', '~> 2.3', '>= 2.3.1'
+gem 'sqlite3'
 
-group :production do
-	gem 'pg'
-	gem 'rails_12factor'
-end
 
 group :development, :test do
-gem 'sqlite3'
 gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
 

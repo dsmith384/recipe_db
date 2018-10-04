@@ -1,5 +1,6 @@
 class ImageUploader < CarrierWave::Uploader::Base
 
-storage :fog
+storage :aws
+
 
 end
