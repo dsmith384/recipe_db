@@ -12,7 +12,19 @@
   <%= link_to "Recipe App", root_path, class: 'navbar-brand' %>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav navbar-right">
-      <li class="nav-item active"><%= link_to "About", pages_about_path %></li>
+      <li class="nav-item"><%= link_to "About", pages_about_path %></li>
+      <% if user_signed_in? %>
+    <ul>
+       <li class="nav-item"><%= link_to 'Submit Recipe', new_recipe_path %></li>
+       <li class="nav-item"><%= link_to 'Account', edit_user_registration_path %></li>
+       <li class="nav-item"><%= link_to 'Sign out', destroy_user_session_path, :method => :delete %></li>
+    </ul>
+   <% else %>
+    <ul>
+       <li class="nav-item"><%= link_to 'Sign up', new_user_registration_path%></li>
+       <li class="nav-item"><%= link_to 'Sign in', new_user_session_path %></li>
+    </ul>
+   <% end %>
     </ul>
   </div>
 </nav>
