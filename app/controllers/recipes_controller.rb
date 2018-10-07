@@ -1,25 +1,28 @@
 class RecipesController < ApplicationController
   before_action :set_recipe, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index, :show]
 
   # GET /recipes
   # GET /recipes.json
   def index
-    @recipes = Recipe.all
+    @recipe = Recipe.all
   end
 
   # GET /recipes/1
   # GET /recipes/1.json
   def show
+   @recipe = Recipe.find(params[:id])
   end
 
   # GET /recipes/new
   def new
-    @recipe = Recipe.new
+    @recipe = current_user.recipes.build
   end
 
   # GET /recipes/1/edit
   def edit
-  end
+    @recipe = Recipe.find(params[:id])
+  end 
 
   # POST /recipes
   # POST /recipes.json
@@ -40,8 +43,10 @@ class RecipesController < ApplicationController
   # PATCH/PUT /recipes/1
   # PATCH/PUT /recipes/1.json
   def update
+    @recipe = Recipe.find(params[:id])
+
     respond_to do |format|
-      if @recipe.update(recipe_params)
+      if @recipe.update_attributes(recipe_params)
         format.html { redirect_to @recipe, notice: 'Recipe was successfully updated.' }
         format.json { render :show, status: :ok, location: @recipe }
       else
@@ -69,5 +74,5 @@ class RecipesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def recipe_params
-params.require(:recipe).permit(:remove_image, :image, :title, :description, ingredients_attributes:[:id, :content, :_destroy], steps_attributes:[:id, :direction, :_destroy])    end
+params.require(:recipe).permit(:show, :remove_image, :image, :title, :description, ingredients_attributes:[:id, :content, :_destroy], steps_attributes:[:id, :direction, :_destroy])    end
 end

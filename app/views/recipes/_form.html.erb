@@ -1,4 +1,4 @@
-<%= form_with(model: recipe, local: true) do |form| %>
+<%= form_for @recipe do |f| %>
   <% if recipe.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(recipe.errors.count, "error") %> prohibited this recipe from being saved:</h2>
@@ -10,75 +10,50 @@
       </ul>
     </div>
   <% end %>
-<div class="form-group">
-    <%= form.file_field :image %>
+<div class="field">
+    <%= f.file_field :image %>
     <% if @recipe.image? %>
       <%= image_tag @recipe.image.url, class: "recipe-show" %>
-      <%= form.check_box :remove_image %>
+      <%= f.check_box :remove_image %>
         Remove Image
     <% end %>
  </div>
-  <div class="form-group">
-    <%= form.label :title %>
-    <%= form.text_field :title, id: :recipe_title, class: "form-control" %>
+  <div class="field">
+    <%= f.label :title %>
+    <br/>
+    <%= f.text_field :title, id: :recipe_title %>
   </div>
 
   <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :recipe_description, class: "form-control" %>
+    <%= f.label :description %>
+    <br/>
+    <%= f.text_area :description, id: :recipe_description %>
   </div>
 
-  <div class="form-group">
-
-
+<div class="field">
   <h3>Add Ingredients</h3>
-
-
-    <%= form.nested_fields_for :ingredients do |ingredient| %>
-
-
-      <%= ingredient.text_field :content,class: "form-control" %>
-
-
-      <%= ingredient.remove_nested_fields_link %>
-
-
-    <% end %>
-
-
-      <%= form.add_nested_fields_link :ingredients %>
-
-
+  <div id='ingredients'>
+    <%= f.fields_for :ingredients do |ingredient| %>
+      <%render 'ingredient_fields', :f => ingredient %>
+      <% end %>
+      <div class='links'>
+        <%= link_to_add_association 'add ingredient', f, :ingredients %>
+      </div>
   </div>
+</div>
 
-
- 
-
-
-  <div class="form-group">
-
-
+<div class="field">
   <h3>Add Steps</h3>
-
-
-    <%= form.nested_fields_for :steps do |step| %>
-
-
-      <%= step.text_field :direction,class: "form-control" %>
-
-
-      <%= step.remove_nested_fields_link %>
-
-
-    <% end %>
-
-
-      <%= form.add_nested_fields_link :steps %>
-
-
+  <div id='steps'>
+    <%= f.fields_for :steps do |step| %>
+      <%render 'step_fields', :f => step %>
+      <% end %>
+      <div class='links'>
+        <%= link_to_add_association 'add step', f, :steps %>
+      </div>
   </div>
-
+</div>
   <div class="actions">
-    <%= form.submit %>
+    <%= f.submit 'Save' %>
   </div>
 <% end %>
