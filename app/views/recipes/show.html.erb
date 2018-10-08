@@ -13,8 +13,9 @@
 <h3>Steps</h3>
 	<ol>
 	<% for @step in @recipe.steps %>
-	<li><%= @step.direction %></li>
+		<li><%= @step.direction %></li>
+	<% end %>
+
 	</ol>
-<% end %>
 <%= link_to 'Edit', edit_recipe_path(@recipe) %> |
 <%= link_to 'Back', root_path %>

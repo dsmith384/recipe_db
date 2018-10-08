@@ -1,6 +1,6 @@
 class ImageUploader < CarrierWave::Uploader::Base
-
-storage :aws
-
+if Rails.env.production?
+	storage :aws
+end
 
 end

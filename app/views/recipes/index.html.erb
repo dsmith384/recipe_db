@@ -13,8 +13,10 @@
           <li><%= recipe.title %></li>
           <li><%= recipe.description %></li>
           <li><%= link_to 'Show', recipe %> |
+      <% if current_user == recipe.user %>
           <%= link_to 'Edit', edit_recipe_path(recipe) %> |
-        <%= link_to 'Destroy', recipe, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+          <%= link_to 'Destroy', recipe, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+      <% end %>
       </ul>
     </div><!-- /recipe-box-->
   </div><!--col-md-4-->

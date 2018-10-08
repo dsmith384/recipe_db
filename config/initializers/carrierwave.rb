@@ -1,3 +1,4 @@
+if Rails.env.production?
 CarrierWave.configure do |config|
   config.root = Rails.root.join('tmp') # adding these...
   config.cache_dir = 'carrierwave'
@@ -14,4 +15,5 @@ CarrierWave.configure do |config|
   config.fog_directory  = ENV['S3_Bucket']                             # required
   config.fog_public     = false                                   # optional, defaults to true
   config.fog_attributes = {'Cache-Control'=>'max-age=315576000'}
+end
 end

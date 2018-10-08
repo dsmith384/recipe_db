@@ -1,10 +1,8 @@
  <div class='nested-fields'>
     <div class="field">
       <div id='ingredients'>
-      <%= f.fields_for :ingredients do |ingredient| %>
-      <%= ingredient.text_field :content,class: "form-control" %>
+      <%= f.text_field :content,class: "form-control" %>
       </div>
     </div>
     <%= link_to_remove_association "remove ingredient", f %>
 </div>
-  <% end %>

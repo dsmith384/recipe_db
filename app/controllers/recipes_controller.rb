@@ -1,7 +1,7 @@
 class RecipesController < ApplicationController
   before_action :set_recipe, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index, :show]
-
+  before_action :current_user_is_user, only: [:destroy, :edit]
   # GET /recipes
   # GET /recipes.json
   def index
@@ -28,7 +28,7 @@ class RecipesController < ApplicationController
   # POST /recipes.json
   def create
     @recipe = Recipe.new(recipe_params)
-
+    @recipe.user_id = current_user.id
     respond_to do |format|
       if @recipe.save
         format.html { redirect_to @recipe, notice: 'Recipe was successfully created.' }
@@ -74,5 +74,14 @@ class RecipesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def recipe_params
-params.require(:recipe).permit(:show, :remove_image, :image, :title, :description, ingredients_attributes:[:id, :content, :_destroy], steps_attributes:[:id, :direction, :_destroy])    end
+params.require(:recipe).permit(:show, :remove_image, :image, :title, :description, ingredients_attributes:[:id, :content, :_destroy], steps_attributes:[:id, :direction, :_destroy])    
+end
+
+  def current_user_is_user 
+    if current_user != @recipe.user 
+      redirect_to root_url, alert: "You do not have permission", class: 'alert alert-danger'
+    end
+  
+  end 
+
 end
